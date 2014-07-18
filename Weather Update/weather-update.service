@@ -1,0 +1,12 @@
+[Unit]
+Description=Update the weather information on disk through Yahoo! Weather
+RequiresMountsFor=/tmp
+Requires=network-online.target
+After=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/weather-update.sh
+Nice=19
+IOSchedulingClass=best-effort
+IOSchedulingPriority=7
