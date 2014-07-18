@@ -1,0 +1,12 @@
+[Unit]
+Description=Update the hosts.block file using the latest mvps blocklist
+RequiresMountsFor=/tmp
+Requires=network-online.target
+After=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/mvps-update.sh
+Nice=19
+IOSchedulingClass=best-effort
+IOSchedulingPriority=7
