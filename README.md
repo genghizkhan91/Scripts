@@ -5,6 +5,10 @@ lot of trivial background tasks which I like to automate or which cannot be
 accomplished to my satisfaction using programs available in the Arch Linux
 official repos or the AUR.
 
+These scripts, being a pet project, are provided as is with no guarantee that
+they will work for you. You are free to use them, or hack them, provided you
+comply with the license they are provided under.
+
 #Projects in this repo
 
 As of now, I have just two projects in this repo:
