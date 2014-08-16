@@ -1,30 +1,12 @@
 #!/bin/bash
 
-## Copyright 2014 genghizkhan91
-
-################################################################################
-#
-## COPYRIGHT NOTICE
-#
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
-#
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.
-#
-################################################################################
-
-/usr/bin/wget -q -O "/tmp/mvps-blocklist-tmp.txt" "http://winhelp2002.mvps.org/hosts.txt" &> /dev/null
-if [ -e "/tmp/mvps-blocklist-tmp.txt" ]; then
+/usr/bin/wget -q -O "/tmp/blocklist-tmp.txt.1" "http://hosts-file.net/.%5Cad_servers.txt" &> /dev/null
+/usr/bin/wget -q -O "/tmp/blocklist-tmp.txt.2" "http://adaway.org/hosts.txt" &> /dev/null
+/usr/bin/wget -q -O "/tmp/blocklist-tmp.txt.3" "http://winhelp2002.mvps.org/hosts.txt" &> /dev/null
+cat "/tmp/blocklist-tmp.txt.1" "/tmp/blocklist-tmp.txt.2" "/tmp/blocklist-tmp.txt.3" | sed -e "s/127.0.0.1/0.0.0.0/g" -e 's/#.*//g' -e '/^#/d' | sort | uniq > "/tmp/blocklist-tmp.txt"
+if [ -e "/tmp/blocklist-tmp.txt" ]; then
     mv "/etc/hosts.block" "/etc/hosts-block.bak"
-    mv "/tmp/mvps-blocklist-tmp.txt" "/etc/hosts.block"
+    mv "/tmp/blocklist-tmp.txt" "/etc/hosts.block"
 fi
 
 exit 0
