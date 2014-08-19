@@ -118,19 +118,21 @@ get_low() {
 
 ## Location
 get_location() {
-    echo CITY="$(grep yweather:location $PATH_TO_ORIG_XML | grep -o 'city=\"[^\"]*\"' | sed -e 's/city\=//g' -e 's/\"//g')" >> $PATH_TO_TMP_TXT
-    echo COUNTRY="$(grep yweather:location $PATH_TO_ORIG_XML | grep -o 'country=\"[^\"]*\"' | sed -e 's/country\=//g' -e 's/\"//g')" >> $PATH_TO_TMP_TXT
+    local LOCATION="$(grep yweather:location $PATH_TO_ORIG_XML)"
+    echo CITY="$(echo $LOCATION | grep -o 'city=\"[^\"]*\"' | sed -e 's/city\=//g' -e 's/\"//g')" >> $PATH_TO_TMP_TXT
+    echo COUNTRY="$(echo $LOCATION | grep -o 'country=\"[^\"]*\"' | sed -e 's/country\=//g' -e 's/\"//g')" >> $PATH_TO_TMP_TXT
 }
 
 ## Units
 get_units() {
-    echo TEMP_UNIT="$(grep yweather:units $PATH_TO_ORIG_XML | grep -o 'temperature=\"[^\"]*\"' | sed -e 's/temperature\=//g' -e 's/\"//g')" >> $PATH_TO_TMP_TXT
-    echo WSPEED_UNIT="$(grep yweather:units $PATH_TO_ORIG_XML | grep -o 'speed=\"[^\"]*\"' | sed -e 's/speed\=//g' -e 's/\"//g')" >> $PATH_TO_TMP_TXT
+    local UNITS="$(grep yweather:units $PATH_TO_ORIG_XML)"
+    echo TEMP_UNIT="$(echo $UNITS | grep -o 'temperature=\"[^\"]*\"' | sed -e 's/temperature\=//g' -e 's/\"//g')" >> $PATH_TO_TMP_TXT
+    echo WSPEED_UNIT="$(echo $UNITS | grep -o 'speed=\"[^\"]*\"' | sed -e 's/speed\=//g' -e 's/\"//g')" >> $PATH_TO_TMP_TXT
 }
 
 ## Humidity
 get_humidity() {
-    echo HUMIDITY="$(grep yweather:atmosphere $PATH_TO_ORIG_XML | grep -o 'humidity=\"[^\"]*\"' | sed -e 's/humidity\=//g' -e 's/\"//g')" >> $PATH_TO_TMP_TXT
+    echo HUMIDITY="$(grep -o 'humidity=\"[^\"]*\"' $PATH_TO_ORIG_XML | sed -e 's/humidity\=//g' -e 's/\"//g')" >> $PATH_TO_TMP_TXT
 }
 
 ## Wind
