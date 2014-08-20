@@ -94,22 +94,22 @@ wget -q -O $PATH_TO_ORIG_XML "http://weather.yahooapis.com/forecastrss?w=2295391
 
 ## Helper functions
 get_conditions() {
-    echo ${PREFIX}_COND="$(echo $TMP | grep -o 'text=\"[^\"]*\"' | sed -e 's/text\=//g' -e 's/\"//g')" >> $PATH_TO_TMP_TXT
+    echo $TMP | sed -n "s/.*text=\"\([^\"]*\)\".*/${PREFIX}\_COND=\1/p" >> $PATH_TO_TMP_TXT
 }
 get_temp() {
-    echo ${PREFIX}_TEMP="$(echo $TMP | grep -o 'temp=\"[^\"]*\"' | sed -e 's/temp\=//g' -e 's/\"//g')" >> $PATH_TO_TMP_TXT
+    echo $TMP | sed -n "s/.*temp=\"\([^\"]*\)\".*/${PREFIX}\_TEMP=\1/p" >> $PATH_TO_TMP_TXT
 }
 get_weather_code() {
-    cp ~/.conky-google-now/"$(echo $TMP | grep -o 'code=\"[^\"]*\"' | sed -e 's/code\=//g' -e 's/\"//g')".png ~/.cache/weather_"$(echo $PREFIX | tr '[:upper:]' '[:lower:]')".png
+    cp ~/.conky-google-now/"$(echo $TMP | sed -n 's/.*code=\"\([^\"]*\)\".*/\1/p')".png ~/.cache/weather_"$(echo $PREFIX | tr '[:upper:]' '[:lower:]')".png
 }
 get_name() {
-    echo ${PREFIX}_NAME="$(echo $TMP | grep -o 'day=\"[^\"]*\"' | sed -e 's/day\=//g' -e 's/\"//g')" >> $PATH_TO_TMP_TXT
+    echo $TMP | sed -n "s/.*day=\"\([^\"]*\)\".*/${PREFIX}\_NAME=\1/p" >> $PATH_TO_TMP_TXT
 }
 get_high() {
-    echo ${PREFIX}_HIGH="$(echo $TMP | grep -o 'high=\"[^\"]*\"' | sed -e 's/high\=//g' -e 's/\"//g')" >> $PATH_TO_TMP_TXT
+    echo $TMP | sed -n "s/.*high=\"\([^\"]*\)\".*/${PREFIX}\_HIGH=\1/p" >> $PATH_TO_TMP_TXT
 }
 get_low() {
-    echo ${PREFIX}_LOW="$(echo $TMP | grep -o 'low=\"[^\"]*\"' | sed -e 's/low\=//g' -e 's/\"//g')" >> $PATH_TO_TMP_TXT
+    echo $TMP | sed -n "s/.*low=\"\([^\"]*\)\".*/${PREFIX}\_LOW=\1/p" >> $PATH_TO_TMP_TXT
 }
 
 ################################################################################
@@ -119,25 +119,25 @@ get_low() {
 ## Location
 get_location() {
     local LOCATION="$(grep yweather:location $PATH_TO_ORIG_XML)"
-    echo CITY="$(echo $LOCATION | grep -o 'city=\"[^\"]*\"' | sed -e 's/city\=//g' -e 's/\"//g')" >> $PATH_TO_TMP_TXT
-    echo COUNTRY="$(echo $LOCATION | grep -o 'country=\"[^\"]*\"' | sed -e 's/country\=//g' -e 's/\"//g')" >> $PATH_TO_TMP_TXT
+    echo $LOCATION | sed -n 's/.*city=\"\([^\"]*\)\".*/CITY=\1/p' >> $PATH_TO_TMP_TXT
+    echo $LOCATION | sed -n 's/.*country=\"\([^\"]*\)\".*/COUNTRY=\1/p' >> $PATH_TO_TMP_TXT
 }
 
 ## Units
 get_units() {
     local UNITS="$(grep yweather:units $PATH_TO_ORIG_XML)"
-    echo TEMP_UNIT="$(echo $UNITS | grep -o 'temperature=\"[^\"]*\"' | sed -e 's/temperature\=//g' -e 's/\"//g')" >> $PATH_TO_TMP_TXT
-    echo WSPEED_UNIT="$(echo $UNITS | grep -o 'speed=\"[^\"]*\"' | sed -e 's/speed\=//g' -e 's/\"//g')" >> $PATH_TO_TMP_TXT
+    echo $UNITS | sed -n 's/.*temperature=\"\([^\"]*\)\".*/TEMP_UNIT=\1/p' >> $PATH_TO_TMP_TXT
+    echo $UNITS | sed -n 's/.*speed=\"\([^\"]*\)\".*/WSPEED_UNIT=\1/p' >> $PATH_TO_TMP_TXT
 }
 
 ## Humidity
 get_humidity() {
-    echo HUMIDITY="$(grep -o 'humidity=\"[^\"]*\"' $PATH_TO_ORIG_XML | sed -e 's/humidity\=//g' -e 's/\"//g')" >> $PATH_TO_TMP_TXT
+    sed -n 's/.*humidity=\"\([^\"]*\)\".*/HUMIDITY=\1/p' $PATH_TO_ORIG_XML >> $PATH_TO_TMP_TXT
 }
 
 ## Wind
 get_wspeed() {
-    echo NOW_WSPEED="$(grep yweather:wind $PATH_TO_ORIG_XML | grep -o 'speed=\"[^\"]*\"' | sed -e 's/speed\=//g' -e 's/\"//g')" >> $PATH_TO_TMP_TXT
+    grep yweather:wind $PATH_TO_ORIG_XML | sed -e 's/.*speed=\"\([^\"]*\)\".*/NOW_WSPEED=\1/g' >> $PATH_TO_TMP_TXT
 }
 
 ## Current conditions
