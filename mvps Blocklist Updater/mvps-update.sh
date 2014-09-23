@@ -6,7 +6,7 @@
 /usr/bin/wget -q -O "/tmp/blocklist-tmp.txt.3" "http://winhelp2002.mvps.org/hosts.txt" &> /dev/null
 
 # Concatenates the different lists
-cat "/tmp/blocklist-tmp.txt.1" "/tmp/blocklist-tmp.txt.2" "/tmp/blocklist-tmp.txt.3" | sed -e "s/127.0.0.1/0.0.0.0/g" -e 's/#.*//g' -e '/^#/d' | sort | uniq > "/tmp/blocklist-tmp.txt"
+cat "/tmp/blocklist-tmp.txt.{1,2,3}" | tr -d '\r' | sed -e "s/127.0.0.1/0.0.0.0/g" -e 's/#.*//g' -e '/^#/d' -e '/^$/d' -e '/localhost/d' | expand -t 1 | sort | uniq > "/tmp/blocklist-tmp.txt"
 
 # Add your own whitelisting rules here using sed
 sed -i '/use.typekit.net/d' "/tmp/blocklist-tmp.txt"
