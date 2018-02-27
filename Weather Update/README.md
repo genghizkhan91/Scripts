@@ -1,4 +1,4 @@
-#Introduction
+# Introduction
 
 The function of this bash script is to make it easier to get weather updates
 in a conky. It is made to be used in conjunction with systemd, and hence
@@ -6,7 +6,7 @@ should not be called directly from inside a conkyrc. A set of unit files has
 been provided in the repo for use with this script, and it is strongly
 recommended that you use them with it.
 
-#Usage
+## Usage
 
 It is recommended that this file be placed in /usr/local/bin and that a
 systemd user instance be used to manage the provided unit files. Upon being
@@ -27,7 +27,7 @@ https://developer.yahoo.com/weather/codes for a full reference sheet.
 Refer to https://github.com/genghizkhan91/dotfiles/blob/master/conky/3.conkyrc
 for an example of how to use this script in a conky.
 
-#Customization
+## Customization
 
 This script, being very modular, is quite easy to customize. There are labels
 for layman-friendly and helper scripts. You may add and remove function calls
@@ -49,7 +49,7 @@ wget command in this file. The format is:
 
 Where [WOEID] should be replaced by your own WOEID
 
-#Support and Bugs
+## Support and Bugs
 
 Since this script was made purely for my own amusement and joy, don't expect
 any serious commitment for support and long hours on the IRC for help

@@ -1,26 +1,5 @@
 #!/bin/bash
 
-## Copyright 2014 genghizkhan91
-
-################################################################################
-#
-## COPYRIGHT NOTICE
-#
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
-#
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.
-#
-################################################################################
-
 ################################################################################
 #
 ## INTRODUCTION
@@ -88,9 +67,9 @@ PATH_TO_FINAL_TXT=~/.cache/weather.txt
 
 wget -q -O $PATH_TO_ORIG_XML "http://weather.yahooapis.com/forecastrss?w=2295391&u=c"
 
-################################################################################
-## Out of bounds for laymen, change if you know your way around bash
-################################################################################
+#######################################################################
+## Out of bounds for laymen, change if you know your way around bash ##
+#######################################################################
 
 ## Helper functions
 get_conditions() {
@@ -112,9 +91,9 @@ get_low() {
     echo $TMP | sed -n "s/.*low=\"\([^\"]*\)\".*/${PREFIX}\_LOW=\1/p" >> $PATH_TO_TMP_TXT
 }
 
-################################################################################
-## Customize from here
-################################################################################
+#########################
+## Customize from here ##
+#########################
 
 ## Location
 get_location() {
